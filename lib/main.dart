@@ -1,3 +1,4 @@
+import 'package:expenses_tracker/expenses.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -16,9 +17,7 @@ class ExpensesTracker extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const Scaffold(
-        body: Text('Hola!'),
-      ),
+      home: const Expenses(),
     );
   }
 }
