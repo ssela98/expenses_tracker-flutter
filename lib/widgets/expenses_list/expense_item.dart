@@ -24,11 +24,11 @@ class ExpenseItem extends StatelessWidget {
                 Text('${expense.amount.toStringAsFixed(2)}€'),
                 Row(
                   children: [
-                    const Icon(
-                      Icons.hot_tub_outlined,
+                    Icon(
+                      expense.categoryIcon,
                       size: 24,
                     ),
-                    Text(expense.date.toString()),
+                    Text(expense.formattedDate),
                   ],
                 )
               ],
