@@ -95,13 +95,15 @@ class _ExpensesState extends State<Expenses> {
       appBar: AppBar(
         title: const Text('Expenses Tracker'),
         centerTitle: true,
-        backgroundColor: const Color.fromARGB(255, 115, 30, 255),
       ),
-      body: Column(
-        children: [
-          const Text('The chart...'),
-          Expanded(child: mainContent),
-        ],
+      body: Container(
+        margin: const EdgeInsets.symmetric(vertical: 25),
+        child: Column(
+          children: [
+            const Text('The chart...'),
+            Expanded(child: mainContent),
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _openAddExpenseOverlay,
