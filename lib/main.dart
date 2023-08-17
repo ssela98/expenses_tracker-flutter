@@ -25,6 +25,11 @@ class ExpensesTracker extends StatelessWidget {
           elevation: 8,
           shadowColor: Colors.black,
         ),
+        cardTheme: const CardTheme().copyWith(
+          color: kColorScheme.secondaryContainer,
+          margin: const EdgeInsets.symmetric(vertical: 8),
+          elevation: 2,
+        ),
       ),
       home: const Expenses(),
     );

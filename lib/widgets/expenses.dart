@@ -97,7 +97,10 @@ class _ExpensesState extends State<Expenses> {
         centerTitle: true,
       ),
       body: Container(
-        margin: const EdgeInsets.symmetric(vertical: 25),
+        margin: const EdgeInsets.symmetric(
+          vertical: 24,
+          horizontal: 12,
+        ),
         child: Column(
           children: [
             const Text('The chart...'),
