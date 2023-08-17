@@ -83,67 +83,75 @@ class _NewExpenseState extends State<NewExpense> {
             maxLength: 50,
             decoration: const InputDecoration(label: Text('Title')),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Wrap(
+            runSpacing: 20,
             children: [
-              Expanded(
-                child: TextField(
-                  controller: _amountController,
-                  decoration: const InputDecoration(
-                    suffixText: '€',
-                    label: Text('Amount'),
-                  ),
-                  keyboardType: TextInputType.number,
-                ),
-              ),
-              Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text(_selectedDate == null
-                        ? 'No date selected'
-                        : dateFormatter.format(_selectedDate!)),
-                    IconButton(
-                      onPressed: _presentDatePicker,
-                      icon: const Icon(Icons.calendar_month_rounded),
-                    ),
-                  ],
-                ),
-              )
-            ],
-          ),
-          Row(
-            children: [
-              DropdownButton(
-                value: _selectedCategory,
-                items: Category.values
-                    .map(
-                      (category) => DropdownMenuItem(
-                        value: category,
-                        child: Text(category.name.toUpperCase()),
-                      ),
-                    )
-                    .toList(),
-                onChanged: (value) {
-                  _setCategory(value);
-                },
-              ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  ElevatedButton(
-                    onPressed: _submit,
-                    child: const Text('Submit'),
+                  Expanded(
+                    child: TextField(
+                      controller: _amountController,
+                      decoration: const InputDecoration(
+                        suffixText: '€',
+                        label: Text('Amount'),
+                      ),
+                      keyboardType: TextInputType.number,
+                    ),
                   ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Text('Cancel'),
-                  ),
+                  Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(_selectedDate == null
+                            ? 'No date selected'
+                            : dateFormatter.format(_selectedDate!)),
+                        IconButton(
+                          onPressed: _presentDatePicker,
+                          icon: const Icon(Icons.calendar_month_rounded),
+                        ),
+                      ],
+                    ),
+                  )
                 ],
-              )
+              ),
+              Wrap(
+                direction: Axis.horizontal,
+                spacing: 20,
+                children: [
+                  DropdownButton(
+                    value: _selectedCategory,
+                    items: Category.values
+                        .map(
+                          (category) => DropdownMenuItem(
+                            value: category,
+                            child: Text(category.name.toUpperCase()),
+                          ),
+                        )
+                        .toList(),
+                    onChanged: (value) {
+                      _setCategory(value);
+                    },
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      ElevatedButton(
+                        onPressed: _submit,
+                        child: const Text('Submit'),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text('Cancel'),
+                      ),
+                    ],
+                  )
+                ],
+              ),
             ],
-          ),
+          )
         ],
       ),
     );
