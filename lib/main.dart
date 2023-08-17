@@ -30,6 +30,16 @@ class ExpensesTracker extends StatelessWidget {
           margin: const EdgeInsets.symmetric(vertical: 8),
           elevation: 2,
         ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: kColorScheme.primaryContainer,
+          ),
+        ),
+        textTheme: ThemeData().textTheme.copyWith(
+              titleLarge: const TextStyle(
+                fontWeight: FontWeight.w500,
+              ),
+            ),
       ),
       home: const Expenses(),
     );

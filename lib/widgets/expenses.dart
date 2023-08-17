@@ -112,7 +112,6 @@ class _ExpensesState extends State<Expenses> {
         onPressed: _openAddExpenseOverlay,
         label: const Icon(Icons.add),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }
