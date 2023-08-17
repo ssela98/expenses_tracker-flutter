@@ -67,11 +67,9 @@ class _ExpensesState extends State<Expenses> {
     );
 
     if (_registeredExpenses.isNotEmpty) {
-      mainContent = Expanded(
-        child: ExpensesList(
-          expenses: _registeredExpenses,
-          removeExpense: _removeExpense,
-        ),
+      mainContent = ExpensesList(
+        expenses: _registeredExpenses,
+        removeExpense: _removeExpense,
       );
     }
 
@@ -84,7 +82,7 @@ class _ExpensesState extends State<Expenses> {
       body: Column(
         children: [
           const Text('The chart...'),
-          mainContent,
+          Expanded(child: mainContent),
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
