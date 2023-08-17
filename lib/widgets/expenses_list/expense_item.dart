@@ -22,7 +22,9 @@ class ExpenseItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text('${expense.amount.toStringAsFixed(2)}€'),
-                Row(
+                Wrap(
+                  spacing: 12,
+                  crossAxisAlignment: WrapCrossAlignment.center,
                   children: [
                     Icon(
                       expense.categoryIcon,
@@ -30,7 +32,7 @@ class ExpenseItem extends StatelessWidget {
                     ),
                     Text(expense.formattedDate),
                   ],
-                )
+                ),
               ],
             )
           ],
