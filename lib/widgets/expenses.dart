@@ -44,6 +44,9 @@ class _ExpensesState extends State<Expenses> {
   void _openAddExpenseOverlay() {
     showModalBottomSheet(
       isScrollControlled: true,
+      constraints: BoxConstraints.expand(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height),
       context: context,
       builder: (ctx) => NewExpense(addExpense: _addExpense),
     );
@@ -81,6 +84,9 @@ class _ExpensesState extends State<Expenses> {
 
   @override
   Widget build(BuildContext context) {
+    final double width = MediaQuery.of(context).size.width;
+    final bool isSmallScreen = width < 601;
+
     Widget mainContent = const Center(
       child: Text('No expenses. Time to add some!'),
     );
@@ -96,23 +102,40 @@ class _ExpensesState extends State<Expenses> {
       appBar: AppBar(
         title: const Text('Expenses Tracker'),
         centerTitle: true,
+        actions: !isSmallScreen
+            ? [
+                IconButton(
+                  onPressed: _openAddExpenseOverlay,
+                  icon: const Icon(Icons.add),
+                ),
+              ]
+            : [],
       ),
       body: Container(
         margin: const EdgeInsets.symmetric(
           vertical: 24,
           horizontal: 12,
         ),
-        child: Column(
-          children: [
-            Chart(expenses: _registeredExpenses),
-            Expanded(child: mainContent),
-          ],
-        ),
+        child: isSmallScreen
+            ? Column(
+                children: [
+                  Chart(expenses: _registeredExpenses),
+                  Expanded(child: mainContent),
+                ],
+              )
+            : Row(
+                children: [
+                  Expanded(child: Chart(expenses: _registeredExpenses)),
+                  Expanded(child: mainContent),
+                ],
+              ),
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: _openAddExpenseOverlay,
-        label: const Icon(Icons.add),
-      ),
+      floatingActionButton: isSmallScreen
+          ? FloatingActionButton.extended(
+              onPressed: _openAddExpenseOverlay,
+              label: const Icon(Icons.add),
+            )
+          : null,
     );
   }
 }
