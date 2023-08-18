@@ -89,88 +89,92 @@ class _NewExpenseState extends State<NewExpense> {
   Widget build(BuildContext context) {
     final double keyboardSpace = MediaQuery.of(context).viewInsets.bottom;
 
-    return SingleChildScrollView(
-      child: Padding(
-        padding: EdgeInsets.fromLTRB(16, 48, 16, keyboardSpace + 16),
-        child: Column(
-          children: [
-            TextField(
-              controller: _titleController,
-              maxLength: 50,
-              decoration: const InputDecoration(label: Text('Title')),
-            ),
-            Wrap(
-              runSpacing: 20,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: TextField(
-                        controller: _amountController,
-                        decoration: const InputDecoration(
-                          suffixText: '€',
-                          label: Text('Amount'),
+    return LayoutBuilder(builder: ((context, constraints) {
+      // final double width = constraints.maxWidth;
+
+      return SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(16, 48, 16, keyboardSpace + 16),
+          child: Column(
+            children: [
+              TextField(
+                controller: _titleController,
+                maxLength: 50,
+                decoration: const InputDecoration(label: Text('Title')),
+              ),
+              Wrap(
+                runSpacing: 20,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: TextField(
+                          controller: _amountController,
+                          decoration: const InputDecoration(
+                            suffixText: '€',
+                            label: Text('Amount'),
+                          ),
+                          keyboardType: TextInputType.number,
                         ),
-                        keyboardType: TextInputType.number,
                       ),
-                    ),
-                    Expanded(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
+                      Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text(_selectedDate == null
+                                ? 'No date selected'
+                                : dateFormatter.format(_selectedDate!)),
+                            IconButton(
+                              onPressed: _presentDatePicker,
+                              icon: const Icon(Icons.calendar_month_rounded),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                  Wrap(
+                    direction: Axis.horizontal,
+                    spacing: 20,
+                    children: [
+                      DropdownButton(
+                        value: _selectedCategory,
+                        items: Category.values
+                            .map(
+                              (category) => DropdownMenuItem(
+                                value: category,
+                                child: Text(category.name.toUpperCase()),
+                              ),
+                            )
+                            .toList(),
+                        onChanged: (value) {
+                          _setCategory(value);
+                        },
+                      ),
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
                         children: [
-                          Text(_selectedDate == null
-                              ? 'No date selected'
-                              : dateFormatter.format(_selectedDate!)),
-                          IconButton(
-                            onPressed: _presentDatePicker,
-                            icon: const Icon(Icons.calendar_month_rounded),
+                          ElevatedButton(
+                            onPressed: _submit,
+                            child: const Text('Submit'),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Text('Cancel'),
                           ),
                         ],
-                      ),
-                    )
-                  ],
-                ),
-                Wrap(
-                  direction: Axis.horizontal,
-                  spacing: 20,
-                  children: [
-                    DropdownButton(
-                      value: _selectedCategory,
-                      items: Category.values
-                          .map(
-                            (category) => DropdownMenuItem(
-                              value: category,
-                              child: Text(category.name.toUpperCase()),
-                            ),
-                          )
-                          .toList(),
-                      onChanged: (value) {
-                        _setCategory(value);
-                      },
-                    ),
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        ElevatedButton(
-                          onPressed: _submit,
-                          child: const Text('Submit'),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Text('Cancel'),
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-              ],
-            )
-          ],
+                      )
+                    ],
+                  ),
+                ],
+              )
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    }));
   }
 }
