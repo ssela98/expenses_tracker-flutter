@@ -36,3 +36,23 @@ class Expense {
     return categoryIcons[category];
   }
 }
+
+class ExpenseBucket {
+  const ExpenseBucket({required this.expenses, required this.category});
+  ExpenseBucket.forCategory(List<Expense> expenses, this.category)
+      : expenses =
+            expenses.where((expense) => expense.category == category).toList();
+
+  final List<Expense> expenses;
+  final Category category;
+
+  double get sumExpenses {
+    double sum = 0;
+
+    for (var expense in expenses) {
+      sum += expense.amount;
+    }
+
+    return sum;
+  }
+}
