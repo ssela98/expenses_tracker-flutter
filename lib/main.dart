@@ -4,6 +4,11 @@ import 'package:flutter/material.dart';
 final ColorScheme kColorScheme =
     ColorScheme.fromSeed(seedColor: Colors.deepPurple);
 
+final ColorScheme kDarkColorScheme = ColorScheme.fromSeed(
+  brightness: Brightness.dark,
+  seedColor: const Color.fromARGB(255, 0, 30, 105),
+);
+
 void main() {
   runApp(const ExpensesTracker());
 }
@@ -41,6 +46,21 @@ class ExpensesTracker extends StatelessWidget {
               ),
             ),
       ),
+      darkTheme: ThemeData.dark().copyWith(
+        colorScheme: kDarkColorScheme,
+        useMaterial3: true,
+        cardTheme: const CardTheme().copyWith(
+          color: kDarkColorScheme.secondaryContainer,
+          margin: const EdgeInsets.symmetric(vertical: 8),
+          elevation: 2,
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: kDarkColorScheme.primaryContainer,
+          ),
+        ),
+      ),
+      themeMode: ThemeMode.dark, // ThemeMode.system
       home: const Expenses(),
     );
   }
